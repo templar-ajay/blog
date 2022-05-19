@@ -1,0 +1,129 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand text-success" href="#">Star Blogs</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input
+          #searched
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          (input)="onInputChange(searched)"
+        />
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- Button trigger modal -->
+<button
+  class="btn btn-outline-success mt-4 mb-2"
+  style="margin-left: 60px"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+>
+  Add New Blog
+</button>
+
+<!-- Modal to add a new blog -->
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">New Blog</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <label>Title</label>
+            <input type="text" class="form-control" #blogTitle />
+            <label>Content</label>
+            <textarea
+              #blogContent
+              rows="12"
+              type="text"
+              class="form-control"
+            ></textarea>
+            <br />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Discard
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSaveClick(blogTitle, blogContent)"
+          data-bs-dismiss="modal"
+        >
+          Save and Upload
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+
+<!-- Modal to save edited blogs -->
+<!--  -->
+<div *ngFor="let blog of blogData; let i = index">
+  <div *ngIf="blog.dikhanaHH">
+    <div class="row container-fluid">
+      <div class="card mx-5 my-2 noteCard" style="width: 35em">
+        <div class="card-body">
+          <h5 class="card-title">{{ blog.title }}</h5>
+          <p class="card-text">
+            {{ blog.content }}
+          </p>
+          <button class="btn btn-outline-danger" (click)="onDeleteClick(i)">
+            Delete Post
+          </button>
+          <button
+            class="btn btn-outline-primary mx-2"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            (click)="onEditClick(i, blogTitle, blogContent)"
+          >
+            Edit Blog Post
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
