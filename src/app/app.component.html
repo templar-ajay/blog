@@ -97,12 +97,10 @@
   </div>
 </div>
 
-<!--  -->
-
-<!-- Modal to save edited blogs -->
-<!--  -->
+<!-- -->
+<!-------------------- blogs to be added ----------------------->
 <div *ngFor="let blog of blogData; let i = index">
-  <div *ngIf="blog.dikhanaHH">
+  <div *ngIf="blog.showToAdmin">
     <div class="row container-fluid">
       <div class="card mx-5 my-2 noteCard" style="width: 35em">
         <div class="card-body">
@@ -123,7 +121,43 @@
             Edit Blog Post
           </button>
         </div>
+        <div class="container-fluid">
+          <label class="mb-2"> Comments </label>
+          <div class="card my-2 noteCard" style="width: 30em">
+            <div
+              class="card-body"
+              *ngFor="let comment of blogData[i].comments; let k = index"
+            >
+              <h5 class="card-title">
+                {{ comment.userName }}
+              </h5>
+              <p class="card-text">
+                {{ comment.userComment }}
+              </p>
+              <button
+                #deleteBtn
+                class="btn btn-danger"
+                (click)="onCommentDeleteBtnClicked(i, k, deleteBtn)"
+                [innerText]="comment.approved === false ? 'Delete' : 'Decline'"
+              >
+                Decline
+              </button>
+              <button
+                class="btn btn-success mx-2"
+                type="button"
+                (click)="onCommentApproved(i, k)"
+                [innerText]="
+                  comment.approved === false ? 'Approve' : 'Comment Approved'
+                "
+              >
+                Approve
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!------------------------------------------------------------->
 </div>
